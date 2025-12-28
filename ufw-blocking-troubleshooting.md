@@ -104,29 +104,3 @@ sudo ufw status numbered
 sudo ufw delete 1  # номер правила с вашим IP
 sudo ufw reload
 ```
- 
-## Постоянное решение
- 
-### Вариант 1: Быстрый (через команду)
- 
-НА СЕРВЕРЕ:
-```bash
-# Добавить whitelist для вашего IP
-sudo ufw insert 1 allow from YOUR_IP
-sudo ufw reload
-```
- 
-### Вариант 2: Надёжный (через конфиг)
- 
-НА СЕРВЕРЕ добавьте в /etc/ufw/before.rules ПЕРЕД строкой # don't delete the 'COMMIT' line:
-```
-# Whitelist для домашних/офисных IP
--A ufw-before-input -s YOUR_IP -j ACCEPT
-```
- 
-Затем:
-```bash
-sudo ufw reload
-```
- 
-Готово! Ваш IP всегда будет в whitelist и rate limiting не будет применяться.
